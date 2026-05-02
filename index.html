@@ -867,6 +867,73 @@
       text-align: center;
     }
 
+    /* ── Achievements ── */
+    #achievements { background: var(--bg); }
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .achievement-card {
+      padding: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, box-shadow .3s, transform .3s;
+    }
+    .achievement-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .achievement-card.gold::before { background: linear-gradient(90deg, #ffd700, #ffaa00); }
+    .achievement-card.blue::before { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+    .achievement-card.green::before { background: linear-gradient(90deg, var(--accent3), var(--accent)); }
+    .achievement-card:hover { border-color: var(--border2); box-shadow: 0 20px 50px rgba(0,0,0,0.4); transform: translateY(-4px); }
+    .achievement-card:hover::before { opacity: 1; }
+    .ach-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; gap: 1rem; }
+    .ach-icon { font-size: 2rem; flex-shrink: 0; }
+    .ach-source-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      border: 1px solid;
+      white-space: nowrap;
+    }
+    .badge-gold { color: #ffd700; border-color: rgba(255,215,0,0.3); background: rgba(255,215,0,0.07); }
+    .badge-blue { color: var(--accent); border-color: rgba(0,212,255,0.3); background: rgba(0,212,255,0.07); }
+    .badge-green { color: var(--accent3); border-color: rgba(0,255,157,0.3); background: rgba(0,255,157,0.07); }
+    h3.ach-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .ach-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.65; margin-bottom: 1.2rem; }
+    .ach-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color .2s;
+    }
+    .ach-link:hover { color: var(--accent); }
+
     /* ── Footer ── */
     footer {
       padding: 2.5rem clamp(1.5rem, 5vw, 4rem);
@@ -886,14 +953,42 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .about-visual { max-width: 280px; margin: 0 auto; }
+      .about-visual { max-width: 260px; margin: 0 auto; }
       .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
       .projects-grid { grid-template-columns: 1fr; }
       .about-stats { grid-template-columns: repeat(3, 1fr); }
+      .achievements-grid { grid-template-columns: 1fr; }
+      .badge-ai { right: -10px; }
+      .badge-bot { left: -10px; }
     }
     @media (max-width: 560px) {
+      body { cursor: auto; }
+      #cursor, #cursor-ring { display: none; }
       .about-stats { grid-template-columns: 1fr 1fr; }
       .skills-grid { grid-template-columns: 1fr; }
+      section { padding: 4rem 1.2rem; }
+      h1.hero-name { font-size: clamp(2.8rem, 14vw, 5rem); }
+      .hero-badge { font-size: 0.65rem; padding: 5px 12px; text-align: center; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-outline { width: 100%; max-width: 280px; text-align: center; }
+      .timeline { padding-left: 1.8rem; }
+      .timeline-item::before { left: -1.8rem; }
+      h3.timeline-role { font-size: 1.15rem; }
+      .about-visual { max-width: 200px; }
+      .about-floating-badge { font-size: 0.65rem; padding: 7px 10px; }
+      .badge-ai { right: -5px; top: -5px; }
+      .badge-bot { left: -5px; bottom: 20px; }
+      .contact-link-value { font-size: 0.8rem; word-break: break-all; }
+      .project-body { padding: 1.2rem; }
+      .mobile-menu a { font-size: 1.6rem; }
+      .achievement-card { padding: 1.4rem; }
+      .ach-source-badge { font-size: 0.62rem; padding: 3px 8px; }
+      .footer-left, .footer-right { font-size: 0.68rem; }
+      footer { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+    }
+    @media (max-width: 380px) {
+      h1.hero-name { font-size: 2.4rem; }
+      .about-stats { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -919,6 +1014,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Achievements</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
@@ -931,6 +1027,7 @@
   <a href="#about" onclick="closeMobile()">About</a>
   <a href="#skills" onclick="closeMobile()">Skills</a>
   <a href="#projects" onclick="closeMobile()">Projects</a>
+  <a href="#achievements" onclick="closeMobile()">Achievements</a>
   <a href="#experience" onclick="closeMobile()">Experience</a>
   <a href="#contact" onclick="closeMobile()">Contact</a>
 </div>
@@ -1139,7 +1236,7 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               GitHub
             </a>
-            <a href="https://nexacloud.rishav.tech" target="_blank" rel="noopener" class="proj-link proj-link-live" aria-label="Nexa Cloud live demo">
+            <a href="https://nexacloud.rishav.tech/" target="_blank" rel="noopener" class="proj-link proj-link-live" aria-label="Nexa Cloud live demo">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               Live Demo
             </a>
@@ -1178,6 +1275,62 @@
   </div>
 </section>
 
+<!-- ═══ ACHIEVEMENTS ═══ -->
+<section id="achievements">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">Recognition</div>
+      <h2 class="section-title reveal reveal-delay-1">Achievements</h2>
+      <p class="section-sub reveal reveal-delay-2">Recognised by global media, developer communities, and international hackathons.</p>
+    </div>
+    <div class="achievements-grid">
+
+      <!-- TechPulse -->
+      <div class="achievement-card gold reveal">
+        <div class="ach-top">
+          <span class="ach-icon">📰</span>
+          <span class="ach-source-badge badge-gold">TechPluse News</span>
+        </div>
+        <h3 class="ach-title">Featured in TechPluse — India's Emerging AI Builder</h3>
+        <p class="ach-desc">TechPulse covered Rishav's story, highlighting Nexa Cloud and the Nexa AI Robot as standout examples of India's next-generation multimodal AI movement — written up alongside established industry names.</p>
+        <a href="https://techpluse.site" target="_blank" rel="noopener" class="ach-link" aria-label="Read TechPulse article">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          techpluse.site
+        </a>
+      </div>
+
+      <!-- DEV.to -->
+      <div class="achievement-card blue reveal reveal-delay-1">
+        <div class="ach-top">
+          <span class="ach-icon">👨‍💻</span>
+          <span class="ach-source-badge badge-blue">DEV Community</span>
+        </div>
+        <h3 class="ach-title">Featured on DEV.to — The 13-Year-Old Creating India's Future AI Venture</h3>
+        <p class="ach-desc">A profile published on DEV.to documented Rishav's journey from beginner Python scripts to founding Nexa Cloud and building an advanced multimodal AI desk assistant, inspiring developers worldwide.</p>
+        <a href="https://dev.to" target="_blank" rel="noopener" class="ach-link" aria-label="Read DEV.to article">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          dev.to/jaivijayan/who-is-rishav-raj-29be
+        </a>
+      </div>
+
+      <!-- MLH Hackathon -->
+      <div class="achievement-card green reveal reveal-delay-2">
+        <div class="ach-top">
+          <span class="ach-icon">🏆</span>
+          <span class="ach-source-badge badge-green">MLH Hackathon</span>
+        </div>
+        <h3 class="ach-title">2nd Place — MLH Production Engineering Hackathon (International)</h3>
+        <p class="ach-desc">Secured 2nd position in the Major League Hacking Production Engineering Hackathon — a globally competitive, online event. Competed under team name <strong style="color:var(--text)">Modern Tech</strong>, beating hundreds of teams worldwide.</p>
+        <span class="ach-link" style="cursor:default">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Major League Hacking · Online · International
+        </span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ═══ EXPERIENCE ═══ -->
 <section id="experience">
   <div class="container">
@@ -1188,7 +1341,7 @@
     </div>
     <div class="timeline reveal reveal-delay-1">
       <div class="timeline-item">
-        <div class="timeline-period">2024 – Present</div>
+        <div class="timeline-period">2023 – Present</div>
         <h3 class="timeline-role">Founder & Lead Developer</h3>
         <div class="timeline-org">Nexa Cloud</div>
         <ul class="timeline-points">
@@ -1230,7 +1383,7 @@
             </div>
             <div class="contact-link-text">
               <span class="contact-link-label">GitHub</span>
-              <span class="contact-link-value">github.com/rishavraj379</span>
+              <span class="contact-link-value">github.com/RishavRaj379</span>
             </div>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted)"><polyline points="9 18 15 12 9 6"/></svg>
           </a>
