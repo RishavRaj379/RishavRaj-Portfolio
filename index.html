@@ -1533,16 +1533,29 @@ miniParticles('canvas-nr', '#00ff9d', '#00d4ff');
 /* ─────────────────────────────────────────────
    CONTACT FORM
 ───────────────────────────────────────────── */
-document.getElementById('contact-form').addEventListener('submit', e => {
+document.getElementById('contact-form').addEventListener('submit', async e => {
   e.preventDefault();
   const btn = e.target.querySelector('.form-submit');
   btn.textContent = 'Sending…';
   btn.disabled = true;
-  setTimeout(() => {
-    document.getElementById('form-success').style.display = 'block';
-    btn.style.display = 'none';
-    e.target.reset();
-  }, 1200);
+  try {
+    const res = await fetch(e.target.action, {
+      method: 'POST',
+      body: new FormData(e.target),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      document.getElementById('form-success').style.display = 'block';
+      btn.style.display = 'none';
+      e.target.reset();
+    } else {
+      btn.textContent = 'Failed. Try again.';
+      btn.disabled = false;
+    }
+  } catch {
+    btn.textContent = 'Error. Try again.';
+    btn.disabled = false;
+  }
 });
 </script>
 </body>
